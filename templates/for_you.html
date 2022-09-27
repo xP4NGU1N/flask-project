@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% block main %}
+
+    <H3>Some suggestions for you, <b>{{ welcome_user }}</b>.</H3>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Event</th>
+                <th>Date</th>
+                <th>Group Size<br>Equipment</th>
+                <th>Additional Info</th>
+                <th>Join</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for activity in activities %}
+                <tr>
+                    <td>{{ activity.hobby }} @ {{ activity.location }}<br>Host: {{ activity.organiser }}</td>
+                    <td>{{ activity.date }}<br>{{ activity.participant_count }} joined</td>
+                    <td>Max: {{ activity.max }}<br>{{ activity.equipment }}</td>
+                    <td>{{ activity.comment }}</td>
+                    <td>
+                        <form action = "/join_event" method = "post">
+                            <input type = "hidden" name = "event_id" value = "{{ activity.event_id }}">
+                            <input type = "hidden" name = "participant_count" value = "{{ activity.participant_count }}">
+                            <input type = "hidden" name = "max" value = "{{ activity.max }}">
+                            <input type = "hidden" name = "hobby" value = "{{ activity.hobby }}">
+                            <input type = "hidden" name = "location" value = "{{ activity.location }}">
+                            <input type = "hidden" name = "date" value = "{{ activity.date }}">
+                            <input type = "submit" value = "Join Event">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+    <form action = "/events" method = "post">
+        <input type = "hidden" name = "hobby" value = "{{ sub_interest }}">
+        <input type = "submit" value = "{{ sub_interest }} Events">
+    </form>
+    <br>
+    <h4><a href = "/events">Explore a new hobby!</a></h4>
+    <hr>
+    <img id = "image" src = "https://www.pngitem.com/pimgs/m/141-1414092_nyan-cat-png-transparent-png.png" alt = "events_page">
+
+{% endblock %}

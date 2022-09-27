@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% block main %}
+    <h3><b>Join an event!</b></h3>
+    <br>
+    <form action = "/events" method = "post">
+        <input type = text name = "hobby" autocomplete = "off" placeholder = "Filter by Hobby" list = "hobby_list">
+            <datalist id = "hobby_list">
+                {% for hobby in hobbies %}
+                <option>{{ hobby }}</option>
+                {% endfor %}
+            </datalist>
+        <input type = "submit" value = "Search">
+        <input type = "submit" action = "/events" value = "Reset Filter">
+    </form>
+    <hr>
+    <H3><b>{{ hobby }} Events<b></H3>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Hobby</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Group Size<br>Equipment</th>
+                <th>Additional Info</th>
+                <th>Join</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for activity in activities %}
+                <tr>
+                    <td>{{ activity.hobby }}</td>
+                    <td>{{ activity.location }}<br>Host: {{ activity.organiser }}</td>
+                    <td>{{ activity.date }}<br>{{ activity.participant_count }} joined</td>
+                    <td>Max: {{ activity.max }}<br>{{ activity.equipment }}</td>
+                    <td>{{ activity.comment }}</td>
+                    <td>
+                        <form action = "/join_event" method = "post">
+                            <input type = "hidden" name = "event_id" value = "{{ activity.event_id }}">
+                            <input type = "hidden" name = "participant_count" value = "{{ activity.participant_count }}">
+                            <input type = "hidden" name = "max" value = "{{ activity.max }}">
+                            <input type = "hidden" name = "hobby" value = "{{ activity.hobby }}">
+                            <input type = "hidden" name = "location" value = "{{ activity.location }}">
+                            <input type = "hidden" name = "date" value = "{{ activity.date }}">
+                            <input type = "submit" value = "Join Event">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+    <hr>
+    <img id = "image" src = "https://t3.ftcdn.net/jpg/03/24/64/44/360_F_324644401_lYsDy30Cjk7e3WRPEnt7qck5h9GktqPU.jpg" alt = "events_page">
+
+{% endblock %}

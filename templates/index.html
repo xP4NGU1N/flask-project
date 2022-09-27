@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Overview
+{% endblock %}
+
+{% block main %}
+
+    <H2 align = "left">{{ welcome_user }}</H2>
+    <H2 align = "centre">Upcoming Events</H2>
+    <hr>
+    <table>
+        <thead>
+            <tr>
+                <th>Hobby</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Equipment</th>
+                <th>Attendance</th>
+                <th>Additional Info</th>
+                <th>Withdrawal</th>
+            </tr>
+        </thead>
+            <tbody>
+                {% for participant in participants %}
+                <tr>
+                    <td>{{ participant.hobby }}<br>Host: {{ participant.organiser }}</td>
+                    <td>{{ participant.location }}</td>
+                    <td>{{ participant.date }}</td>
+                    <td>{{ participant.equipment }}</td>
+                    <td>{{ participant.participant_count }} pax</td>
+                    <td>{{ participant.comment }}</td>
+                    <td>
+                        <form onsubmit = "return confirm('Note: event will be deleted if you are the last participant.\nConfirm withdrawal?');" action = "/withdraw" method = "post">
+                            <input type = "hidden" name = "event_id" value = "{{ participant.event_id }}">
+                            <input type = "hidden" name = "participant_count" value = "{{ participant.participant_count }}">
+                            <input type = "hidden" name = "organiser" value = "{{ participant.organiser }}">
+                            <input type = "submit" value = "Withdraw">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+    <img id = "image" src ="https://t3.ftcdn.net/jpg/01/75/91/84/360_F_175918488_wkuz1qNqDlsWYhfsHdQAmV23SNmkj3vV.jpg" alt ="index_page" >
+
+{% endblock %}

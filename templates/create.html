@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Event
+{% endblock %}
+
+{% block main %}
+
+<img id = "image" src = "https://i1.wp.com/digiday.com/wp-content/uploads/2015/07/minions-banner.png?fit=682%2C188&zoom=2&quality=100&strip=all&ssl=1" = "create_event">
+<hr>
+<H2>Create New Event</H2>
+<br>
+<form action = "/create" method = "post">
+    <input type = "text" name = "hobby" autocomplete = "off" placeholder = "Select hobby" list = "hobby_list">
+        <datalist id = "hobby_list">
+            {% for hobby in hobbies %}
+            <option>{{ hobby }}</option>
+            {% endfor %}
+        </datalist>
+    <input type = "date" min = "2021-01-01" name = "date" autocomplete = "off">
+    <input type = "number" min = "1" name = "max" autocomplete = "off" placeholder = "Maximum Group Size">
+    <input type = "text" name = "equipment" autocomplete = "off" placeholder = "Equipment Provided">
+    <br><br>
+    <textarea maxlength = 100 name = "location" rows = "2" cols = "60" autocomplete = "off" placeholder = "Address"></textarea>
+    <textarea maxlength = "100" name = "comment" rows = "2" cols = "45" autocomplete = "off" placeholder = "Additional Information. Leave blank if NA."></textarea>
+    <br><br>
+    <input type = "submit" value = "Add Event">
+
+
+</form>
+{% endblock %}

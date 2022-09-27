@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+
+<img id = "image" src = "https://i.pinimg.com/originals/83/66/e3/8366e340ca373c14da885f96fdc2dfb2.jpg" alt = "register page">
+<hr>
+<form action = "/register" method = "post">
+    <input type = "text" name = "email" autocomplete = "off" placeholder = "Email: XXX@gmail.com" autofocus>
+    <br><br>
+    <input type = "text" name = "username" autocomplete = "off" placeholder = "Username">
+    <br><br>
+    <input type = "password" name = "password" autocomplete = "off" placeholder = "Password">
+    <br><br>
+    <input type = "password" name = "confirmation" autocomplete = "off" placeholder = "Confirm password">
+    <hr>
+    <input type = "submit" value = "Register Account">
+</form>
+
+
+{% endblock %}
